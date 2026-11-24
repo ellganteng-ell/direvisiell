@@ -1,0 +1,468 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Di Revisi Ell — Cinema Edition</title>
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+
+body{
+  background:#171313;
+  color:#f8ead4;
+  font-family:Georgia,serif;
+  overflow-x:hidden;
+}
+
+:root{
+  --red:#8f202d;
+  --darkred:#4c111b;
+  --gold:#e9bd69;
+  --cream:#f8ead4;
+}
+
+.filmstrip{
+  height:27px;
+  background:#090909;
+  display:flex;
+  justify-content:space-around;
+  align-items:center;
+  overflow:hidden;
+  border-top:3px solid #292929;
+  border-bottom:3px solid #292929;
+}
+
+.filmstrip span{
+  width:22px;height:14px;
+  background:#d8c9a8;
+  border-radius:3px;
+  opacity:.75;
+}
+
+header{
+  position:relative;
+  background:linear-gradient(90deg,#4c111b,#a52c39,#4c111b);
+  padding:28px 18px 35px;
+  text-align:center;
+  border-bottom:5px solid var(--gold);
+  box-shadow:0 8px 25px #0008;
+}
+
+.curtain{
+  position:absolute;
+  top:0;bottom:0;
+  width:42px;
+  background:repeating-linear-gradient(
+    90deg,#701824 0px,#a62c39 12px,#5b121e 22px
+  );
+  box-shadow:inset 0 0 12px #0008;
+}
+
+.curtain.left{left:0}
+.curtain.right{right:0}
+
+.brand{
+  color:var(--gold);
+  font-weight:bold;
+  font-size:20px;
+  letter-spacing:3px;
+}
+
+.marquee{
+  margin:24px auto 0;
+  max-width:650px;
+  border:2px solid var(--gold);
+  border-radius:9px;
+  padding:20px 10px;
+  background:#291316;
+  box-shadow:0 0 18px #e8b95755,
+             inset 0 0 20px #0008;
+}
+
+.lights{
+  color:var(--gold);
+  letter-spacing:7px;
+  font-size:12px;
+  margin:7px;
+}
+
+.marquee h1{
+  color:#ffe5ac;
+  font-size:clamp(30px,8vw,52px);
+  letter-spacing:3px;
+  text-shadow:0 0 15px #e6b95c88;
+}
+
+.marquee p{
+  color:#e9bd69;
+  font-size:11px;
+  letter-spacing:4px;
+  margin-top:12px;
+}
+
+main{
+  max-width:850px;
+  margin:40px auto;
+  padding:0 20px;
+}
+
+.hero{text-align:center}
+
+.popcorn{
+  font-size:52px;
+  margin-bottom:10px;
+  filter:drop-shadow(0 5px 8px #0008);
+}
+
+.hero h2{
+  color:#f8e5c2;
+  font-size:clamp(26px,6vw,39px);
+  line-height:1.2;
+}
+
+.hero h2 span{color:var(--gold)}
+
+.hero p{
+  color:#c5b5a7;
+  font-family:Arial,sans-serif;
+  font-size:14px;
+  line-height:1.8;
+  margin:15px auto 0;
+  max-width:540px;
+}
+
+.upload-card{
+  position:relative;
+  margin-top:35px;
+  padding:25px 18px;
+  background:#f4e7d0;
+  color:#321b1b;
+  border:4px double #b68a49;
+  border-radius:5px;
+  box-shadow:0 12px 30px #0007;
+}
+
+.ticket-label{
+  text-align:center;
+  color:#8f202d;
+  font-size:11px;
+  letter-spacing:3px;
+  font-weight:bold;
+  margin-bottom:18px;
+}
+
+.upload-area{
+  display:block;
+  border:5px dashed #080808;
+  border-radius:8px
+  padding:30px 12px;
+  text-align:center;
+  background:#fff8eb;
+  cursor:pointer;
+}
+
+.upload-area .icon{
+  font-size:40px;
+  margin-bottom:12px;
+}
+
+.upload-area h3{
+  font-size:19px;
+  color:#67202a;
+  margin-bottom:10px;
+}
+
+.upload-area p{
+  font:13px/1.7 Arial,sans-serif;
+  color:#786b60;
+}
+
+input[type=file]{display:none}
+
+.file-name{
+  margin-top:13px;
+  font:12px Arial,sans-serif;
+  color:#77232d;
+  overflow-wrap:anywhere;
+}
+
+button{
+  width:100%;
+  border:0;
+  margin-top:17px;
+  padding:16px 10px;
+  background:#8f202d;
+  color:#ffe9c1;
+  font-weight:bold;
+  letter-spacing:1px;
+  font-size:14px;
+  cursor:pointer;
+  border-radius:4px;
+  box-shadow:0 4px 0 #50111a;
+}
+
+button:disabled{
+  opacity:.5;
+  cursor:not-allowed;
+}
+
+.note{
+  text-align:center;
+  color:#75665c;
+  font:11px/1.6 Arial,sans-serif;
+  margin-top:14px;
+}
+
+.section-title{
+  text-align:center;
+  color:var(--gold);
+  letter-spacing:3px;
+  font-size:14px;
+  margin:40px 0 20px;
+}
+
+.features{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
+}
+
+.feature{
+  background:#291c1c;
+  border:1px solid #76513b;
+  border-radius:8px;
+  padding:19px 12px;
+  text-align:center;
+}
+
+.feature .emoji{font-size:28px}
+.feature h3{
+  color:var(--gold);
+  font-size:14px;
+  margin:10px 0;
+}
+
+.feature p{
+  color:#c8b8a9;
+  font:11px/1.7 Arial,sans-serif;
+}
+
+.reel{
+  text-align:center;
+  font-size:27px;
+  letter-spacing:8px;
+  margin:30px 0;
+}
+
+footer{
+  background:#4c111b;
+  border-top:3px solid var(--gold);
+  padding:27px 15px;
+  text-align:center;
+  color:#e9bd69;
+  font-size:11px;
+  letter-spacing:2px;
+  line-height:2;
+}
+
+@media(max-width:550px){
+  .features{grid-template-columns:1fr}
+  .curtain{width:23px}
+  main{margin:32px auto}
+}/* TIRAI MERAH ADMIT ONE */
+.curtain-frame {
+  position: relative;
+  isolation: isolate;
+  margin: 35px auto;
+}
+
+.curtain-frame::before,
+.curtain-frame::after {
+  content: "";
+  position: absolute;
+  top: -15px;
+  bottom: -15px;
+  width: clamp(45px, 12vw, 90px);
+  z-index: 3;
+  pointer-events: none;
+
+  background:
+    repeating-linear-gradient(
+      90deg,
+      #360006 0px,
+      #72000b 8px,
+      #c90018 17px,
+      #85000d 25px,
+      #430007 34px
+    );
+
+  box-shadow:
+    inset 5px 0 12px #ff777744,
+    inset -8px 0 12px #160000aa,
+    0 5px 15px #0009;
+}
+
+.curtain-frame::before {
+  left: -18px;
+  clip-path: polygon(
+    0 0, 100% 0, 100% 75%,
+    85% 82%, 100% 90%, 75% 100%, 0 100%
+  );
+  border-radius: 0 0 35% 10%;
+}
+
+.curtain-frame::after {
+  right: -18px;
+  clip-path: polygon(
+    0 0, 100% 0, 100% 100%,
+    25% 100%, 0 90%, 15% 82%, 0 75%
+  );
+  border-radius: 0 0 10% 35%;
+}
+.curtain-frame .upload-card {
+  position: relative;
+  z-index: 1;
+}
+</style>
+</head>
+
+<body>
+
+<div class="filmstrip">
+  <span></span><span></span><span></span><span></span>
+  <span></span><span></span><span></span><span></span>
+  <span></span><span></span><span></span><span></span>
+</div>
+
+<header>
+  <div class="curtain left"></div>
+  <div class="curtain right"></div>
+
+  <div class="brand">DI REVISI ELL</div>
+
+  <div class="marquee">
+    <div class="lights">✦ ✦ ✦ ✦ ✦ ✦ ✦</div>
+    <h1>MAKALAH GAK DI ACC??</h1>
+<div class="lights">✦ ✦ ✦ ✦ ✦ ✦ ✦</div>
+<p>Sini, biar Ell cari kesalahannya<br>
+atau Ell bantu revisi.</p>
+
+<main>
+
+  <section class="hero">
+    <div class="popcorn">🍿</div>
+    <h2>Every Paper Has<br>A <span>Story</span> to Tell.</h2>
+    <p>
+      Masukkan makalahmu, yuk!
+      Ell akan membantu menemukan kesalahan
+      penulisan, tata bahasa, struktur, dan format.
+      Seperti menonton film, kita periksa setiap adegannya!
+    </p>
+  </section>
+
+  <div class="curtain-frame">
+<section class="upload-card">
+      ★ ADMIT ONE · DOCUMENT CHECKING ★
+    </div>
+
+    <label for="document" class="upload-area">
+      <div class="icon">🎬 🍿 🎞️</div>
+      <h3>Masukkan Dokumenmu</h3>
+      <p>
+        Klik di sini untuk memilih makalahmu.<br>
+        Format DOCX · Maksimal 25 MB
+      </p>
+    </label>
+
+    <input type="file" id="document" accept=".docx">
+
+    <div class="file-name" id="fileName">
+      Belum ada dokumen yang dipilih.
+    </div>
+
+    <button id="checkButton" disabled>
+      🎟️ MULAI PEMERIKSAAN
+    </button>
+
+    <p class="note">
+      Tenang, dokumenmu tidak akan diubah tanpa izinmu.
+    </p>
+  </section>
+</div>
+  <h3 class="section-title">
+    ✦ WHAT'S ON THE SCREEN? ✦
+  </h3>
+
+  <section class="features">
+    <div class="feature">
+      <div class="emoji">✍️</div>
+      <h3>Spelling Check</h3>
+      <p>Pemeriksaan ejaan, tanda baca, dan tata bahasa.</p>
+    </div>
+
+    <div class="feature">
+      <div class="emoji">🎞️</div>
+      <h3>Structure Check</h3>
+      <p>Pemeriksaan struktur dan kelengkapan makalah.</p>
+    </div>
+
+    <div class="feature">
+      <div class="emoji">🎥</div>
+      <h3>Format Check</h3>
+      <p>Pemeriksaan format berdasarkan standar Di Revisi Ell.</p>
+    </div>
+  </section>
+
+  <div class="reel">🎬 🎞️ 🍿 🎞️ 🎬</div>
+
+</main>
+
+<footer>
+  ★ THANK YOU FOR VISITING ★<br>
+  MADE WITH CARE BY ELL · © 2026
+</footer>
+
+<div class="filmstrip">
+  <span></span><span></span><span></span><span></span>
+  <span></span><span></span><span></span><span></span>
+  <span></span><span></span><span></span><span></span>
+</div>
+
+<script>
+const input=document.getElementById("document");
+const fileName=document.getElementById("fileName");
+const checkButton=document.getElementById("checkButton");
+
+input.addEventListener("change",()=>{
+  const file=input.files[0];
+  if(!file)return;
+
+  if(!file.name.toLowerCase().endsWith(".docx")){
+    alert("Gunakan dokumen Word .docx");
+    input.value="";
+    fileName.textContent="Belum ada dokumen yang dipilih.";
+    checkButton.disabled=true;
+    return;
+  }
+
+  if(file.size>25*1024*1024){
+    alert("Ukuran dokumen maksimal 25 MB.");
+    input.value="";
+    fileName.textContent="Belum ada dokumen yang dipilih.";
+    checkButton.disabled=true;
+    return;
+  }
+
+  fileName.textContent="🎟️ "+file.name;
+  checkButton.disabled=false;
+});
+
+checkButton.addEventListener("click",()=>{
+  alert("Fitur pemeriksaan sedang dalam tahap pembangunan. Backend dan Artificial Intelligence akan dihubungkan berikutnya.");
+});
+</script>
+
+</body>
+</html>
